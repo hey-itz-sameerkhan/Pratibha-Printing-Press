@@ -18,18 +18,17 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("✅ Database Connected!"))
     .catch(err => console.log("❌ DB Connection Error:", err));
 
-// 2. Email Transporter Setup (Updated for Render Compatibility)
+// 2. Email Transporter Setup 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
     host: 'smtp.gmail.com',
-    port: 587, // 465 ki jagah 587 use karo
-    secure: false, // 587 ke liye ise false rakhna hota hai
+    port: 587, 
+    secure: false,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     },
     tls: { 
-        rejectUnauthorized: false // Ye zaroori hai connection establish karne ke liye
+        rejectUnauthorized: false 
     }
 });
 
