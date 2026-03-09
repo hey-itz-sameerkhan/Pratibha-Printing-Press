@@ -1,55 +1,36 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
-const multer = require('multer'); 
+const multer = require('multer');
+const { Resend } = require('resend');
 require('dotenv').config();
 
-// Models Import
+// Models
 const Form = require('./models/Form');
-const Career = require('./models/Career'); 
+const Career = require('./models/Career');
 
 const app = express();
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// 1. Database Connection
+// Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("✅ Database Connected!"))
-    .catch(err => console.log("❌ DB Connection Error:", err));
+.then(() => console.log("✅ Database Connected!"))
+.catch(err => console.log("❌ DB Connection Error:", err));
 
-// 2. Email Transporter Setup (Production Safe for Render)
-
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true, // true for 465
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    connectionTimeout: 10000, // 10 sec timeout
-    greetingTimeout: 10000,
-    socketTimeout: 10000
-});
-
-// SMTP Connection Verification (Debugging)
-transporter.verify((error, success) => {
-    if (error) {
-        console.error("❌ SMTP Connection Error:", error);
-    } else {
-        console.log("✅ SMTP Server Ready - Emails can be sent");
-    }
-});
-
-// Multer Configuration (Memory Storage for fast processing)
-const upload = multer({ 
+// Multer Setup (Resume Upload)
+const upload = multer({
     storage: multer.memoryStorage(),
-    limits: { fileSize: 5 * 1024 * 1024 } // Max 5MB PDF
+    limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 // 3. Keep-alive Route
-app.get('/ping', (req, res) => res.send("I am awake!"));
+app.get('/ping', (req, res) => res.send("🚀 Pratibha Printing Press Backend is LIVE!"));
 
 // ✨ Add this Home Route
 app.get('/', (req, res) => {
@@ -62,21 +43,33 @@ app.get('/', (req, res) => {
     `);
 });
 
-// 4. Contact Form Route
+// ===============================
+// CONTACT FORM API
+// ===============================
+
 app.post('/api/submit', async (req, res) => {
+
     try {
+
         const { name, email, phone, subject, message } = req.body;
-        const newData = new Form({ formType: 'contact', name, email, phone, subject, message });
+
+        // Save to MongoDB
+        const newData = new Form({
+            formType: 'contact',
+            name,
+            email,
+            phone,
+            subject,
+            message
+        });
+
         await newData.save();
 
-        res.status(200).json({ success: true, message: "Inquiry Sent!" });
-
-        // Admin Email Options
-        const adminMailOptions = {
-            from: `"Pratibha Printing Portal" <${process.env.EMAIL_USER}>`, 
-            to: 'ea@pratibhaprinting.com',
-            replyTo: email, 
-            subject: `🚀 New Business Inquiry: ${subject} | From ${name}`,
+        // Admin Email
+        await resend.emails.send({
+            from: "Pratibha Printing <onboarding@resend.dev>",
+            to: "ea@pratibhaprinting.com",
+            subject: `New Inquiry from ${name}`,
             html: `
             <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
 
@@ -120,13 +113,13 @@ app.post('/api/submit', async (req, res) => {
             </div>
         </div>
         `
-        };
+        });
 
         // User Confirmation Email
-        const userMailOptions = {
-            from: `"Pratibha Printing Press" <${process.env.EMAIL_USER}>`,
+        await resend.emails.send({
+            from: "Pratibha Printing <onboarding@resend.dev>",
             to: email,
-            subject: `Thank you for contacting us, ${name}!`,
+            subject: "We received your inquiry",
             html:  `
             <div style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 600px; margin: auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;">
                 <div style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 40px 20px; text-align: center;">
@@ -156,44 +149,56 @@ app.post('/api/submit', async (req, res) => {
                     <p style="margin: 0;"><strong>Pratibha Printing Press | Mathura, UP</strong></p>
                     <p style="margin: 5px 0 0;">Quality Printing & Packaging Solutions</p>
                 </div>
-            </div>`                        
-        };
+            </div>`            
+        });
 
-        // Send both mails in background
-        transporter.sendMail(adminMailOptions).catch(err => console.log("Admin Contact Email Error:", err));
-        if (email.toLowerCase() !== 'ea@pratibhaprinting.com') {
-            transporter.sendMail(userMailOptions).catch(err => console.log("User Contact Email Error:", err));
-        }
+        res.status(200).json({
+            success: true,
+            message: "Form submitted successfully"
+        });
 
     } catch (err) {
-        if (!res.headersSent) res.status(500).json({ success: false, error: err.message });
+
+        console.error("❌ Contact Error:", err);
+
+        res.status(500).json({
+            success: false,
+            message: "Server error"
+        });
+
     }
+
 });
 
-// 5. Career Form Route (FULLY FIXED)
+
+// ===============================
+// CAREER FORM API
+// ===============================
+
 app.post('/api/career', upload.single('resume'), async (req, res) => {
+
     try {
+
         const { user_name, user_email, user_mobile, experience } = req.body;
-        const resumeFile = req.file;
+        const resume = req.file;
 
-        if (!resumeFile) return res.status(400).json({ success: false, message: "Resume PDF is required!" });
+        // Save to MongoDB
+        const newCareer = new Career({
+            user_name,
+            user_email,
+            user_mobile,
+            experience
+        });
 
-        // A. Save to MongoDB
-        const newCareer = new Career({ user_name, user_email, user_mobile, experience });
         await newCareer.save();
 
-        // B. Send Response to Frontend Immediately
-        res.status(200).json({ success: true, message: "Application Submitted Successfully!" });
+        // Admin Email with Resume
+        await resend.emails.send({
 
-        // C. Admin Mail (With Attachment)
-        const adminCareerMail = {
-            from: `"Pratibha Careers" <${process.env.EMAIL_USER}>`,
-            to: 'ea@pratibhaprinting.com',
-            subject: `💼 New Job Application: ${user_name}`,
-            attachments: [{
-                filename: `${user_name}_Resume.pdf`,
-                content: resumeFile.buffer
-            }],
+            from: "Pratibha Careers <onboarding@resend.dev>",
+            to: "ea@pratibhaprinting.com",
+            subject: `New Job Application - ${user_name}`,
+
             html: `
             <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
                 <div style="background: linear-gradient(135deg, #0056b3, #00bfff); color: white; padding: 25px; text-align: center;">
@@ -214,14 +219,24 @@ app.post('/api/career', upload.single('resume'), async (req, res) => {
                 <div style="background-color: #f1f1f1; padding: 15px; text-align: center; font-size: 12px; color: #888;">
                     <p>© 2026 Pratibha Printing Press | Recruitment System</p>
                 </div>
-            </div>`
-        };
+            </div>`,
 
-        // D. User Confirmation Mail
-        const userCareerMail = {
-            from: `"Pratibha Printing Press" <${process.env.EMAIL_USER}>`,
+            attachments: resume ? [
+                {
+                    filename: resume.originalname,
+                    content: resume.buffer
+                }
+            ] : []
+
+        });
+
+        // Candidate Confirmation Email
+        await resend.emails.send({
+
+            from: "Pratibha Careers <onboarding@resend.dev>",
             to: user_email,
-            subject: `Application Received - ${user_name}`,
+            subject: "Application Received",
+
             html: `
             <div style="font-family: 'Segoe UI', Tahoma, sans-serif; max-width: 600px; margin: auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;">
                 <div style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 40px 20px; text-align: center;">
@@ -242,24 +257,33 @@ app.post('/api/career', upload.single('resume'), async (req, res) => {
                     <p>Quality Printing & Packaging Solutions</p>
                 </div>
             </div>`
-        };
+        });
 
-        // ✨ EXECUTION: Dono mail bhejna yahan ensure kiya hai
-        transporter.sendMail(adminCareerMail)
-            .then(() => console.log(`Email sent to Admin for ${user_name}`))
-            .catch(err => console.error("Admin Career Email Error:", err));
-        
-        if (user_email.toLowerCase() !== 'ea@pratibhaprinting.com') {
-            transporter.sendMail(userCareerMail)
-                .then(() => console.log(`Confirmation email sent to ${user_email}`))
-                .catch(err => console.error("User Career Email Error:", err));
-        }
+        res.status(200).json({
+            success: true,
+            message: "Application submitted successfully"
+        });
 
     } catch (err) {
-        console.error("Career Error:", err);
-        if (!res.headersSent) res.status(500).json({ success: false, error: "Critical Error" });
+
+        console.error("❌ Career Error:", err);
+
+        res.status(500).json({
+            success: false,
+            message: "Server error"
+        });
+
     }
+
 });
 
+
+// ===============================
+// SERVER START
+// ===============================
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server is flying on port ${PORT}`));
+
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
