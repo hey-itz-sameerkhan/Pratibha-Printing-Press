@@ -18,17 +18,19 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("✅ Database Connected!"))
     .catch(err => console.log("❌ DB Connection Error:", err));
 
-// 2. Email Transporter Setup (Render Stability Fix)
+// 2. Email Transporter Setup (IPv4 Force & Render Fix)
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587, // 👈 465 block hai, isliye 587 use kar rahe hain
-    secure: false, // 👈 587 ke liye ise false rakhna zaroori hai
+    host: '74.125.200.108', // 👈 Ye Gmail SMTP ka direct IPv4 address hai
+    port: 465,
+    secure: true, 
+    service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     },
     tls: { 
-        rejectUnauthorized: false // 👈 Ye connection drop hone se bachata hai
+        rejectUnauthorized: false,
+        servername: 'smtp.gmail.com' // 👈 Ye zaroori hai SSL verification ke liye
     }
 });
 
