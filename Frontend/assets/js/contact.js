@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             try {
                 // Backend Fetch Call
-                const response = await fetch('http://localhost:5000/api/submit', {
+                const response = await fetch('https://pratibha-printing-press.onrender.com/api/submit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)

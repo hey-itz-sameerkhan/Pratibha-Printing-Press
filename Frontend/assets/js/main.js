@@ -83,11 +83,11 @@ if (careerForm) {
         const formData = new FormData(this);
 
         try {
-            // Backend URL: Isse Render ki link se replace kar dena deployment ke baad
-            const response = await fetch('http://localhost:5000/api/career', {
-                method: 'POST',
-                body: formData
-            });
+            // Backend URL
+              const response = await fetch('https://pratibha-printing-press.onrender.com/api/career', {
+                  method: 'POST',
+                  body: formData
+              });
 
             const result = await response.json();
 
