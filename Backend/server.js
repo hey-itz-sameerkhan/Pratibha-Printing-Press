@@ -40,6 +40,17 @@ const upload = multer({
 // 3. Keep-alive Route
 app.get('/ping', (req, res) => res.send("I am awake!"));
 
+// ✨ Add this Home Route
+app.get('/', (req, res) => {
+    res.send(`
+        <div style="font-family: sans-serif; text-align: center; padding: 50px;">
+            <h1 style="color: #0056b3;">🚀 Pratibha Printing Press Backend is LIVE!</h1>
+            <p>Database connection is successful and server is running.</p>
+            <p style="color: #666;">© 2026 Pratibha Printing Press | Mathura</p>
+        </div>
+    `);
+});
+
 // 4. Contact Form Route
 app.post('/api/submit', async (req, res) => {
     try {
