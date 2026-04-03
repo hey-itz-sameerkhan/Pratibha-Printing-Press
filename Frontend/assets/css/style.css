@@ -467,6 +467,109 @@ body {
 
 }
 
+
+
+
+/* ====================================
+              VIDEO-SECTION 
+   ==================================== */
+/* --- 🎥 PAHARPUR INSPIRED VIDEO SECTION --- */
+
+.partner-showcase-section {
+    padding: 80px 0; /* Mast padding space ke liye */
+    background: var(--white);
+}
+
+/* Container width control karne ke liye */
+.custom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header Text Content */
+.showcase-header {
+    text-align: center;
+    max-width: 800px; /* Paragraph ko zyada failne se rokega */
+    margin-bottom: 40px;
+}
+
+.showcase-heading {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-blue); /* Aapka industrial blue color */
+    margin-bottom: 15px;
+    text-transform: uppercase; /* Capital letters look */
+    letter-spacing: 1px;
+}
+
+.showcase-subtext {
+    font-size: 1.05rem;
+    color: var(--text-muted); /* Dark gray text readable formatting */
+    line-height: 1.7;
+}
+
+/* Video Box Container */
+.video-container-box {
+    position: relative;
+    width: 100%;
+    max-width: 1000px; /* Video box control width */
+    border-radius: 12px; /* Screenshot jaise smooth curved corners */
+    overflow: hidden; /* Video corners ko bhi round rakhega */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow depth ke liye */
+    background-color: var(--dark-bg); /* Video load hone tak dark filler */
+}
+
+.showcase-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Subtle mute/unmute control jaisa screenshot me corner me hai */
+.mute-control-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: var(--text-main);
+    z-index: 10;
+}
+
+.mute-control-btn:hover {
+    background: var(--white);
+    transform: scale(1.1);
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+    .partner-showcase-section {
+        padding: 50px 0;
+    }
+    
+    .showcase-heading {
+        font-size: 1.8rem;
+    }
+    
+    .showcase-subtext {
+        font-size: 0.95rem;
+    }
+}
+
+
+
 /* ====================================
               PRODUCT-SECTION 
    ==================================== */

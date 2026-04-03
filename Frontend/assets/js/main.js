@@ -199,3 +199,17 @@ if (careerForm) {
 
     console.log("Pratibha Press: Home Page Ready 🚀");
 });
+
+
+const video = document.querySelector('.showcase-video');
+const muteBtn = document.getElementById('videoMuteBtn');
+
+muteBtn.addEventListener('click', () => {
+    if (video.muted) {
+        video.muted = false;
+        muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    } else {
+        video.muted = true;
+        muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    }
+});
