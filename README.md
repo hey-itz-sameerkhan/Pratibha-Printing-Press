@@ -1,50 +1,137 @@
-# 🚀 Pratibha Printing Press Portal
-
-**A Modern Full-Stack (MERN) Packaging & Printing Solution Platform**
-
-Pratibha Printing Press is a high-performance, interactive web application built for a premier printing house in Mathura. It features smooth 3D-like animations, a robust career recruitment system, and a real-time business inquiry portal.
-
----
-
-## 🛠️ Tech Stack
-
-### **Frontend**
-
-- **UI/UX:** HTML5, CSS3, Modern JavaScript (ES6+)
-- **Animations:** GSAP (GreenSock), ScrollTrigger, AOS (Animate on Scroll)
-- **Smooth Scrolling:** Lenis Scroll
-- **Components:** Swiper.js (Hero Slider), SweetAlert2 (Professional Popups)
-
-### **Backend**
-
-- **Environment:** Node.js, Express.js
-- **Database:** MongoDB Atlas (MERN Stack)
-- **File Handling:** Multer (Memory Storage)
-- **Email Service:** Nodemailer (SMTP Integration with Background Tasks)
-- **Security:** CORS, Dotenv, 2-Step Verified SMTP
+<!-- PROJECT HEADER -->
+<p align="center">
+  <table>
+    <tr>
+      <td align="left" width="250">
+        <img src="https://github.com/user-attachments/assets/14ac8217-5d75-423f-8a79-7a6d26e2e2ef" alt="Logo" width="240" height="320">
+      </td>
+      <td align="left">
+        <h1>🖨️ Pratibha Printing Press – Business Website</h1>
+        <em>🚀 A modern full-stack business website with automated email system, resume handling, and smooth UI experience. 🚀</em>
+      </td>
+    </tr>
+  </table>
+</p>
 
 ---
 
-## ✨ Key Features
-
-- ✅ **Interactive Home:** GSAP-powered animations for a premium feel.
-- ✅ **Dynamic Quote System:** Clients can send business inquiries directly to the admin.
-- ✅ **Smart Career Portal:** Job seekers can upload PDF resumes which are automatically mailed to HR and saved in the database.
-- ✅ **Auto-Confirmation Emails:** Dual-email system (One for Admin, one for User) for better CRM.
-- ✅ **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop.
-- ✅ **Fast Performance:** Optimized images and lightweight smooth-scroll integration.
+<p align="center">
+  <a href="https://pratibha-printing-press.netlify.app/">
+    <img src="https://img.shields.io/badge/Live%20Demo-Click%20Here-blue?style=for-the-badge" alt="Live Demo">
+  </a>
+  <img src="https://img.shields.io/github/last-commit/hey-itz-sameerkhan/Pratibha-Printing-Press?style=for-the-badge" alt="Last Commit">
+  <img src="https://img.shields.io/badge/Made%20With-❤️%20HTML%20|%20Node.js%20|%20MongoDB-blueviolet?style=for-the-badge" alt="Tech Stack">
+  <img src="https://img.shields.io/github/stars/hey-itz-sameerkhan/Pratibha-Printing-Press?style=social" alt="GitHub Stars">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="MIT License">
+</p>
 
 ---
 
-## 📁 Project Structure
+## ✨ Overview
 
-```text
-.
-├── Backend/                 # Express Server & API Logic
-│   ├── models/              # Mongoose Schemas (Career, Form)
-│   ├── server.js            # Main entry point
-│   └── .env                 # Environment Variables (Protected)
-└── Frontend/                # Client-side UI
-    ├── assets/              # CSS, JS, and Optimized Images
-    └── public/              # HTML Pages (Home, Products, Contact)
-```
+The **Pratibha Printing Press Website** is a **full-stack business solution** designed to:
+
+- 📩 Capture customer inquiries  
+- 💼 Accept job applications with resume uploads  
+- 📧 Send automated emails to both admin & users  
+- 🎨 Deliver a smooth, modern UI experience  
+
+> 💡 Built for real-world business usage with performance, reliability, and scalability in mind.
+
+---
+
+## 🚀 Live Demo
+🎯 **Experience it now:**  
+👉 https://pratibha-printing-press.netlify.app/
+
+---
+
+## 🧠 Project Philosophy
+
+This project focuses on:
+
+- 🔸 Real business problem solving  
+- 🔸 Clean UI + smooth UX  
+- 🔸 Automation (emails + data handling)  
+- 🔸 Scalable backend architecture  
+
+---
+
+## 🧩 Tech Stack
+
+| Layer | Technologies | Purpose |
+| :--- | :--- | :--- |
+| **Frontend** | ![HTML](https://skillicons.dev/icons?i=html) ![CSS](https://skillicons.dev/icons?i=css) ![JS](https://skillicons.dev/icons?i=js) | Structure, styling, interactivity |
+| **Backend** | ![NodeJS](https://skillicons.dev/icons?i=nodejs) ![Express](https://skillicons.dev/icons?i=express) | Server & API handling |
+| **Database** | ![MongoDB](https://skillicons.dev/icons?i=mongodb) | Data storage |
+| **ODM** | ![Mongoose](https://img.shields.io/badge/Mongoose-ODM-green?style=flat) | Schema modeling |
+| **Email Service** | ![Resend](https://img.shields.io/badge/Resend-Emails-black) | Email automation |
+| **File Upload** | ![Multer](https://img.shields.io/badge/Multer-Uploads-blue) | Resume handling |
+| **Animation** | ![AOS](https://img.shields.io/badge/AOS-Scroll%20Animation-purple) ![Lenis](https://img.shields.io/badge/Lenis-Smooth%20Scroll-black) | UI/UX enhancement |
+| **Deployment** | ![Netlify](https://skillicons.dev/icons?i=netlify) ![Render](https://skillicons.dev/icons?i=cloudflare) | Hosting frontend & backend |
+
+---
+
+## 🖼️ Preview  
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a517a841-a780-4423-a4bc-61f8b1f6704a" alt="Website Preview" width="850" style="border-radius:10px; box-shadow:0 0 10px #aaa;">
+</p>
+
+---
+
+## 💼 Core Features  
+
+| 🧩 Category | 🌟 Description |
+| :--- | :--- |
+| 📩 **Contact System** | Stores inquiries in database + sends admin & user emails |
+| 💼 **Career System** | Resume upload + candidate data storage + email alerts |
+| 📧 **Email Automation** | Fully automated using Resend API |
+| 📂 **File Handling** | Secure resume uploads using Multer |
+| 🎨 **Modern UI** | Clean design with smooth scrolling & animations |
+| ⚡ **Fast Performance** | Optimized frontend & backend communication |
+| 🔐 **Environment Config** | Secure keys using dotenv |
+
+---
+
+## 🧱 Architecture Overview
+
+### 🛠 Backend (Node + Express + MongoDB)
+- REST API endpoints (`/api/submit`, `/api/career`)
+- MongoDB collections for forms & careers
+- Email integration via Resend
+
+### 🎨 Frontend (HTML + CSS + JS)
+- Static UI with dynamic API integration  
+- Smooth scrolling via Lenis  
+- Scroll animations via AOS
+
+- 💼 Career Form
+POST /api/career
+⚙️ Environment Variables
+PORT=5000
+MONGO_URI=your_mongodb_url
+RESEND_API_KEY=your_resend_api_key
+🚀 Deployment
+Service	Platform
+Frontend	Netlify
+Backend	Render
+Database	MongoDB Atlas
+📜 License
+
+This project is licensed under the MIT License.
+
+💖 Acknowledgements
+
+"Built with passion to solve real business needs using modern web technologies."
+
+🧡 Footer
+<p align="center"> <b>✨ Created with ❤️ by <a href="https://github.com/hey-itz-sameerkhan">Sameer Khan</a> ✨</b><br> <sub>© 2026 Pratibha Printing Press</sub> </p> ```
+
+---
+
+## 🔌 API Endpoints
+
+### 📩 Contact Form
+```bash
+POST /api/submit
