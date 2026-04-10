@@ -3,7 +3,7 @@
   <table>
     <tr>
       <td align="left" width="250">
-        <img src="https://github.com/user-attachments/assets/14ac8217-5d75-423f-8a79-7a6d26e2e2ef" alt="Logo" width="240" height="320">
+        <img src="https://github.com/hey-itz-sameerkhan/Pratibha-Printing-Press/blob/main/Frontend/assets/Images/logo/footer%20logo.png" alt="Logo" width="240" height="320">
       </td>
       <td align="left">
         <h1>🖨️ Pratibha Printing Press – Business Website</h1>
@@ -75,7 +75,7 @@ This project focuses on:
 ## 🖼️ Preview  
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a517a841-a780-4423-a4bc-61f8b1f6704a" alt="Website Preview" width="850" style="border-radius:10px; box-shadow:0 0 10px #aaa;">
+  <img src="https://github.com/hey-itz-sameerkhan/Pratibha-Printing-Press/blob/main/Frontend/assets/Images/hero-section%20images/project%20view%20%20img.png" alt="Website Preview" width="850" style="border-radius:10px; box-shadow:0 0 10px #aaa;">
 </p>
 
 ---
@@ -117,21 +117,24 @@ Service	Platform
 Frontend	Netlify
 Backend	Render
 Database	MongoDB Atlas
+---
 📜 License
 
 This project is licensed under the MIT License.
+---
 
 💖 Acknowledgements
 
 "Built with passion to solve real business needs using modern web technologies."
 
-🧡 Footer
-<p align="center"> <b>✨ Created with ❤️ by <a href="https://github.com/hey-itz-sameerkhan">Sameer Khan</a> ✨</b><br> <sub>© 2026 Pratibha Printing Press</sub> </p> ```
-
 ---
 
-## 🔌 API Endpoints
+🧡 Footer
+---
+<p align="center"> <b>✨ Created with ❤️ by <a href="https://github.com/hey-itz-sameerkhan">Sameer Khan</a> ✨</b><br>
+   <img src="https://github.com/hey-itz-sameerkhan/Pratibha-Printing-Press/blob/main/Frontend/assets/Images/logo/header%20logo.png" width="250" height="330" alt="Mini Logo"><br>
+  <sub>© 2026 Pratibha Printing Press</sub> </p> 
 
-### 📩 Contact Form
-```bash
-POST /api/submit
+
+
+
