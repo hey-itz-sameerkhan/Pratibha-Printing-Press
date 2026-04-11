@@ -105,18 +105,7 @@ This project focuses on:
 - Static UI with dynamic API integration  
 - Smooth scrolling via Lenis  
 - Scroll animations via AOS
-
-- 💼 Career Form
-POST /api/career
-⚙️ Environment Variables
-PORT=5000
-MONGO_URI=your_mongodb_url
-RESEND_API_KEY=your_resend_api_key
-🚀 Deployment
-Service	Platform
-Frontend	Netlify
-Backend	Render
-Database	MongoDB Atlas
+  
 ---
 📜 License
 
